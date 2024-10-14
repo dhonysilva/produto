@@ -1,4 +1,5 @@
 defmodule ProdutoWeb.Router do
+  alias ProdutoWeb.CategoryLive
   use ProdutoWeb, :router
 
   pipeline :browser do
@@ -25,6 +26,13 @@ defmodule ProdutoWeb.Router do
 
     live "/products/:id", ProductLive.Show, :show
     live "/products/:id/show/edit", ProductLive.Show, :edit
+
+    live "/categories", CategoryLive.Index, :index
+    live "/categories/new", CategoryLive.Index, :new
+    live "/categories/:id/edit", CategoryLive.Index, :edit
+
+    live "/categories/:id", CategoryLive.Show, :show
+    live "/categories/:id/show/edit", CategoryLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

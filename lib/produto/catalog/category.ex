@@ -5,6 +5,10 @@ defmodule Produto.Catalog.Category do
   schema "categories" do
     field :title, :string
 
+    many_to_many :products, Produto.Catalog.Product,
+      join_through: "product_categories",
+      on_replace: :delete
+
     timestamps(type: :utc_datetime)
   end
 
