@@ -20,17 +20,21 @@ defmodule Produto.Catalog do
   end
 
   def create_product(attrs \\ %{}) do
-    IO.puts("Handling 'update_product' event and saving product record.")
+    IO.puts("Handling 'create_product' 01.")
     IO.inspect(attrs)
 
+    categories = list_categories_by_id(attrs["category_id"])
+    IO.inspect(categories)
+
     %Product{}
-    # |> Product.changeset(attrs)
-    |> change_product(attrs)
+    |> Repo.preload(:categories)
+    |> Product.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:categories, categories)
     |> Repo.insert()
   end
 
   def update_product(%Product{} = product, attrs) do
-    IO.puts("Handling 'update_product' event and saving product record.")
+    IO.puts("Handling 'update_product' event 02.")
     IO.inspect(product)
 
     product
@@ -44,10 +48,12 @@ defmodule Produto.Catalog do
   end
 
   def change_product(%Product{} = product, attrs \\ %{}) do
-    IO.puts("Handling 'change_product' event and saving product record.")
-    IO.inspect(product)
+    IO.puts("Handling 'change_product' event 03.")
+    IO.inspect(attrs)
     # Product.changeset(product, attrs)
     categories = list_categories_by_id(attrs["category_id"])
+
+    IO.inspect(categories)
 
     product
     |> Repo.preload(:categories)
@@ -58,6 +64,7 @@ defmodule Produto.Catalog do
   def list_categories_by_id(nil), do: []
 
   def list_categories_by_id(category_id) do
+    IO.inspect("passei aqui no list_categories_by_id")
     Repo.all(from c in Category, where: c.id in ^category_id)
   end
 

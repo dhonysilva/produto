@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS "schema_migrations" ("version" INTEGER PRIMARY KEY, "inserted_at" TEXT);
+CREATE TABLE IF NOT EXISTS "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "title" TEXT, "description" TEXT, "price" DECIMAL(15,6) NOT NULL, "view" INTEGER DEFAULT 0 NOT NULL, "inserted_at" TEXT NOT NULL, "updated_at" TEXT NOT NULL);
+CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE IF NOT EXISTS "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "title" TEXT, "inserted_at" TEXT NOT NULL, "updated_at" TEXT NOT NULL);
+CREATE UNIQUE INDEX "categories_title_index" ON "categories" ("title");
+CREATE TABLE IF NOT EXISTS "product_categories" ("product_id" INTEGER CONSTRAINT "product_categories_product_id_fkey" REFERENCES "products"("id") ON DELETE CASCADE, "category_id" INTEGER CONSTRAINT "product_categories_category_id_fkey" REFERENCES "categories"("id") ON DELETE CASCADE);
+CREATE INDEX "product_categories_product_id_index" ON "product_categories" ("product_id");
+CREATE UNIQUE INDEX "product_categories_category_id_product_id_index" ON "product_categories" ("category_id", "product_id");
+CREATE TABLE IF NOT EXISTS "rooms" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "name" TEXT NOT NULL, "topic" TEXT, "inserted_at" TEXT NOT NULL, "updated_at" TEXT NOT NULL);
+INSERT INTO schema_migrations VALUES(20241013231628,'2024-10-13T23:17:44');
+INSERT INTO schema_migrations VALUES(20241013232353,'2024-10-13T23:25:45');
+INSERT INTO schema_migrations VALUES(20241013232439,'2024-10-13T23:25:45');
+INSERT INTO schema_migrations VALUES(20241014231715,'2024-10-14T23:20:09');

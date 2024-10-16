@@ -1,4 +1,21 @@
 <.header>
+  <div class="flex flex-col flex-shrink-0 w-64 bg-slate-100">
+    <div class="flex justify-between items-center flex-shrink-0 h-16 border-b border-slate-300 px-4">
+      <div class="flex flex-col gap-1.5">
+        <h1 class="text-lg font-bold text-gray-800">
+          relicario
+        </h1>
+      </div>
+    </div>
+    <div class="mt-4 overflow-auto">
+      <div class="flex items-center h-8 px-3 group">
+        <span class="ml-2 leading-none font-medium text-sm">Rooms</span>
+      </div>
+      <div id="rooms-list">
+        <%!-- <.room_link :for={room <- @rooms} room={room} active={room.id == @room.id} /> --%>
+      </div>
+    </div>
+  </div>
   Listing Products
   <:actions>
     <.link patch={~p"/products/new"}>
@@ -32,7 +49,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="product-modal" show on_cancel={JS.patch(~p"/products")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="product-modal"
+  show
+  on_cancel={JS.patch(~p"/products")}
+>
   <.live_component
     module={ProdutoWeb.ProductLive.FormComponent}
     id={@product.id || :new}

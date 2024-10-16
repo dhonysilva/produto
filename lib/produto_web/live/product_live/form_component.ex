@@ -111,11 +111,15 @@ defmodule ProdutoWeb.ProductLive.FormComponent do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         # {:noreply, assign(socket, form: to_form(changeset))}
-        {:noreply, assign_product_form(socket, changeset)}
+        # {:noreply, assign_product_form(socket, changeset)}
+        {:noreply, assign(socket, :changeset, changeset)}
     end
   end
 
   defp save_product(socket, :new, product_params) do
+    IO.puts("Handling 'save_product' method.")
+    IO.inspect(product_params)
+
     case Catalog.create_product(product_params) do
       {:ok, product} ->
         notify_parent({:saved, product})
@@ -127,7 +131,8 @@ defmodule ProdutoWeb.ProductLive.FormComponent do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         # {:noreply, assign(socket, form: to_form(changeset))}
-        {:noreply, assign_product_form(socket, changeset)}
+        # {:noreply, assign_product_form(socket, changeset)}
+        {:noreply, assign(socket, :changeset, changeset)}
     end
   end
 

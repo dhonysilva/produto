@@ -18,7 +18,10 @@ defmodule ProdutoWeb.Router do
   scope "/", ProdutoWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    # get "/home", PageController, :home
+    live "/", ChatRoomLive
+    live "/rooms/:id", ChatRoomLive
+    live "/rooms/:id/edit", ChatRoomLive.Edit
 
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new

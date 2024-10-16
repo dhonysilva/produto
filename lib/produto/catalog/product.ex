@@ -1,4 +1,5 @@
 defmodule Produto.Catalog.Product do
+  # alias Produto.Catalog.Category
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -16,9 +17,10 @@ defmodule Produto.Catalog.Product do
   end
 
   @doc false
-  def changeset(product, attrs) do
+  def changeset(product, attrs \\ %{}) do
     product
     |> cast(attrs, [:title, :description, :price, :view])
-    |> validate_required([:title, :description, :price, :view])
+    # |> cast_assoc(:categories, with: &Category.changeset/2)
+    |> validate_required([:title, :description])
   end
 end
