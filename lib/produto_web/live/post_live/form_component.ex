@@ -91,11 +91,11 @@ defmodule ProdutoWeb.PostLive.FormComponent do
     end
   end
 
-  defp save_post(socket, :new, params) do
+  defp save_post(socket, :new, post_params) do
     IO.puts("passando no save_post :new")
-    IO.inspect(params)
+    IO.inspect(post_params)
 
-    case Blog.create_post(params) do
+    case Blog.create_post(post_params) do
       {:ok, post} ->
         notify_parent({:saved, post})
 

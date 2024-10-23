@@ -54,9 +54,6 @@ defmodule Produto.Blog do
 
   """
   def create_post(attrs \\ %{}) do
-    IO.puts("aqui é create_post")
-    IO.inspect(attrs)
-
     %Post{}
     |> Post.changeset(attrs)
     |> Repo.insert()
